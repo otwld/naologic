@@ -1,0 +1,8 @@
+{
+  "onlyChanged": true,
+  "projectId": "Project:668fa22850553b4d3c2ae719",
+  "storybookConfigDir": "libs/kit/.storybook",
+  "zip": true,
+  "buildScriptName": "build:storybook:kit",
+  "outputDir": "dist/storybook/kit"
+}

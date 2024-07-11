@@ -1,0 +1,8 @@
+{
+  "onlyChanged": true,
+  "projectId": "Project:668fa2dc350ece4f4da6f888",
+  "storybookConfigDir": "libs/theme/.storybook",
+  "zip": true,
+  "buildScriptName": "build:storybook:theme",
+  "outputDir": "dist/storybook/theme"
+}
