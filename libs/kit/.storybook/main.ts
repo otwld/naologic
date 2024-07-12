@@ -16,6 +16,10 @@ const config: StorybookConfig = {
     name: '@storybook/angular',
     options: {},
   },
+  previewHead: (head) => `
+    ${head}
+    <link rel="stylesheet" href="https://naologic-com-assets.naologic.com/fonts/circular-std/circular-std.css">
+  `,
 };
 
 export default config;

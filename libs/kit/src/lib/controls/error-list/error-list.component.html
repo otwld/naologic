@@ -1,0 +1,13 @@
+<ul>
+  @for (error of errors() | keyvalue; track error.key) {
+  <li>
+    @if (error.key === 'required') { This field is required. } @else if
+    (error.key === 'minlength') { Minimum length is
+    {{ error.value.requiredLength }}. } @else if (error.key === 'maxlength') {
+    Maximum length is {{ error.value.requiredLength }}. } @else if (error.key
+    === 'pattern') { Invalid format. } @else if (error.key === 'email') {
+    Invalid email. }
+  </li>
+
+  }
+</ul>

@@ -3,9 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build:storybook:kit": "nx build-storybook kit",
-    "build:storybook:theme": "nx build-storybook theme",
-    "build:storybook:naologic": "nx build-storybook naologic"
+    "build:storybook:kit": "nx build-storybook kit"
   },
   "private": true,
   "dependencies": {
@@ -54,6 +52,8 @@
     "@nx/storybook": "^19.4.2",
     "@nx/web": "19.4.2",
     "@nx/workspace": "19.4.2",
+    "@nx-tools/container-metadata": "^6.0.1",
+    "@nx-tools/nx-container": "^6.0.1",
     "@playwright/test": "^1.36.0",
     "@schematics/angular": "~18.0.0",
     "@storybook/addon-essentials": "^8.2.1",

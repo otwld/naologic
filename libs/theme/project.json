@@ -32,55 +32,6 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint"
-    },
-    "storybook": {
-      "executor": "@storybook/angular:start-storybook",
-      "options": {
-        "port": 4401,
-        "configDir": "libs/theme/.storybook",
-        "browserTarget": "theme:build-storybook",
-        "compodoc": false
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "build-storybook": {
-      "executor": "@storybook/angular:build-storybook",
-      "outputs": ["{options.outputDir}"],
-      "options": {
-        "outputDir": "dist/storybook/theme",
-        "configDir": "libs/theme/.storybook",
-        "browserTarget": "theme:build-storybook",
-        "compodoc": false,
-        "styles": ["libs/theme/src/styles.css"]
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "test-storybook": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "test-storybook -c libs/theme/.storybook --url=http://localhost:4401"
-      }
-    },
-    "static-storybook": {
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "theme:build-storybook",
-        "staticFilePath": "dist/storybook/theme",
-        "spa": true
-      },
-      "configurations": {
-        "ci": {
-          "buildTarget": "theme:build-storybook:ci"
-        }
-      }
     }
   }
 }

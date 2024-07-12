@@ -1,0 +1,15 @@
+<div
+  class="rounded border border-gray-200 p-2 leading-[2.5]"
+  [class.!border-red-500]="service.form.invalid && service.form.touched"
+>
+  @if (service.data(); as data) { @for (item of data; track item) { @switch
+  (item.type) { @case ('text') {
+  <span>{{ item.data }}</span>
+  } @case ('fieldControl') {
+  <lib-field-control [data]="item"></lib-field-control>
+  } @default {
+  <span class="text-red-500">Invalid data type</span>
+  } } } } @else {
+  <p>Please provide a FITB configuration</p>
+  }
+</div>
