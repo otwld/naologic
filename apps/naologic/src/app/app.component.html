@@ -1,1 +1,111 @@
-<app-nx-welcome></app-nx-welcome> <router-outlet></router-outlet>
+<div class="p-4 flex flex-col space-y-4">
+  <h1 class="text-2xl font-bold">FITB Component</h1>
+  <p>
+    In order to let you experiment the capabilities of the FITB component, i
+    created a few examples for you to choose from.
+  </p>
+  <div>
+    Select an example:
+    <lib-select-with-options
+      placeholder="Choose an example"
+      [control]="control"
+      [options]="options"
+    ></lib-select-with-options>
+  </div>
+
+  @if (selectedExample(); as exampleConfig) {
+  <lib-fitb
+    #fitbComponent
+    class="block my-4"
+    [data]="exampleConfig.data"
+    [formConfig]="exampleConfig.formConfig"
+    (formOutput)="onFormChange($event)"
+  ></lib-fitb>
+
+  <p>
+    💡 You can use the accordion below to see the state of the form and the
+    output
+  </p>
+  <!--  DEBUGGING PURPOSES:-->
+  <div ngbAccordion>
+    <div ngbAccordionItem>
+      <h2 ngbAccordionHeader>
+        <button ngbAccordionButton>
+          Information about the instance of the FITB Form
+        </button>
+      </h2>
+      <div ngbAccordionCollapse>
+        <div ngbAccordionBody>
+          <ul
+            class="list-disc list-inside grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 flex-wrap"
+          >
+            <li
+              class="px-2"
+              [class.bg-green-200]="fitbComponent.service.form.valid"
+              [class.bg-red-200]="fitbComponent.service.form.invalid"
+            >
+              Root Form
+              <ng-container
+                *ngTemplateOutlet="
+                  formInfo;
+                  context: { form: fitbComponent.service.form }
+                "
+              ></ng-container>
+            </li>
+            @for (control of fitbComponent.service.form.controls | keyvalue;
+            track control.key) {
+            <li
+              class="px-2"
+              [class.bg-green-200]="
+                fitbComponent.service.form.get(control.key)?.valid
+              "
+              [class.bg-red-200]="
+                fitbComponent.service.form.get(control.key)?.invalid
+              "
+            >
+              {{ control.key }}
+              <ng-container
+                *ngTemplateOutlet="
+                  formInfo;
+                  context: {
+                    form: fitbComponent.service.form.get(control.key),
+                    name: control.key
+                  }
+                "
+              ></ng-container>
+            </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div ngbAccordionItem [collapsed]="false">
+      <h2 ngbAccordionHeader>
+        <button ngbAccordionButton>
+          Output received from the FITB Component
+        </button>
+      </h2>
+      <div ngbAccordionCollapse>
+        <div ngbAccordionBody>
+          <pre>{{ formOutputValue() | json }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #formInfo let-form="form">
+    <ul class="ml-4 list-disc list-inside">
+      <li>value: {{ form.value }}</li>
+      <li>valid: {{ form.valid }}</li>
+      <li>invalid: {{ form.invalid }}</li>
+      <li>untouched: {{ form.untouched }}</li>
+      <li>dirty: {{ form.dirty }}</li>
+      <li>pristine: {{ form.pristine }}</li>
+      <li>touched: {{ form.touched }}</li>
+      <li>pending: {{ form.pending }}</li>
+      <li>status: {{ form.status }}</li>
+      <li>errors: {{ form.errors | json }}</li>
+    </ul>
+  </ng-template>
+  }
+</div>

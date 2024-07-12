@@ -1,0 +1,16 @@
+<input
+  [formControl]="control()"
+  [disableTooltip]="control().valid || control().untouched"
+  class="focus-visible:outline-0 max-w-[20ch] bg-[#F3F4F9] rounded text-center placeholder:text-[#687196] font-medium text-[#3E40DB] leading-loose"
+  [class.!bg-red-100]="control().invalid && control().touched"
+  [class.!bg-[#F1F2FC]]="control().valid"
+  [class.px-2]="control().value"
+  [class.opacity-75]="control().disabled"
+  placeholder="{{ placeholder() }}"
+  [size]="control().value ? control().value.length : placeholder().length"
+  [ngbTooltip]="tipContent"
+/>
+
+<ng-template #tipContent>
+  <lib-error-list [errors]="control().errors || []"></lib-error-list>
+</ng-template>

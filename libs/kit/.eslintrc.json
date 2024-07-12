@@ -7,7 +7,7 @@
       "parserOptions": {
         "project": [
           "libs/kit/tsconfig.*?.json",
-          "libs\\kit\\.storybook\\tsconfig.json"
+          "libs/kit/.storybook/tsconfig.json"
         ]
       },
       "extends": [

@@ -81,51 +81,29 @@
         "jestConfig": "apps/naologic/jest.config.ts"
       }
     },
-    "storybook": {
-      "executor": "@storybook/angular:start-storybook",
-      "options": {
-        "port": 4400,
-        "configDir": "apps/naologic/.storybook",
-        "browserTarget": "naologic:build",
-        "compodoc": false
-      },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "cache": true,
+      "dependsOn": ["build"],
+      "inputs": ["production", "^production"],
       "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "build-storybook": {
-      "executor": "@storybook/angular:build-storybook",
-      "outputs": ["{options.outputDir}"],
-      "options": {
-        "outputDir": "dist/storybook/naologic",
-        "configDir": "apps/naologic/.storybook",
-        "browserTarget": "naologic:build",
-        "compodoc": false
+        "development": {},
+        "production": {}
       },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "test-storybook": {
-      "executor": "nx:run-commands",
       "options": {
-        "command": "test-storybook -c apps/naologic/.storybook --url=http://localhost:4400"
-      }
-    },
-    "static-storybook": {
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "naologic:build-storybook",
-        "staticFilePath": "dist/storybook/naologic",
-        "spa": true
-      },
-      "configurations": {
-        "ci": {
-          "buildTarget": "naologic:build-storybook:ci"
+        "engine": "docker",
+        "push": true,
+        "metadata": {
+          "images": ["${ECOSYSTEM_DOCKER_REGISTRY}/${NX_TASK_TARGET_PROJECT}"],
+          "load": true,
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=sha,prefix=sha-",
+            "${ECOSYSTEM_ENVIRONMENT_NAME}-latest"
+          ]
         }
       }
     }

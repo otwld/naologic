@@ -1,14 +1,11 @@
 {
   "extends": ["../../.eslintrc.json"],
-  "ignorePatterns": ["!**/*", "tailwind.config.ts", "storybook-static"],
+  "ignorePatterns": ["!**/*", "tailwind.config.ts"],
   "overrides": [
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "libs/theme/tsconfig.*?.json",
-          "libs\\theme\\.storybook\\tsconfig.json"
-        ]
+        "project": ["libs/theme/tsconfig.*?.json"]
       },
       "extends": [
         "plugin:@nx/angular",

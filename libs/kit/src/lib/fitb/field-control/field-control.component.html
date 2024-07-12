@@ -1,0 +1,25 @@
+@if (service.vm(); as vm) { @switch (vm.formConfig.type) { @case ('input') {
+<lib-input
+  class="mx-1"
+  [control]="vm.control"
+  [placeholder]="vm.formConfig.placeholder"
+></lib-input>
+} @case ('select-with-options') {
+<lib-select-with-options
+  [control]="vm.control"
+  class="mx-1"
+  [options]="vm.formConfig.options"
+  [placeholder]="vm.formConfig.placeholder"
+></lib-select-with-options>
+} @default {
+<div class="text-red-500">Invalid formConfig type: {{ vm.formConfig }}</div>
+} } @for (item of service.renderedChildren(); track item) { @switch (item.type)
+{ @case ('text') {
+<span>{{ item.data }}</span>
+} @case ('fieldControl') {
+<lib-field-control [data]="item"></lib-field-control>
+} @default {
+<div class="text-red-500">Invalid data type</div>
+} } } } @if (service.errorMessage()) {
+<span class="text-red-500">{{ service.errorMessage() }}</span>
+}

@@ -1,6 +1,6 @@
 {
   "extends": ["../../.eslintrc.json"],
-  "ignorePatterns": ["!**/*", "storybook-static", "tailwind.config.ts"],
+  "ignorePatterns": ["!**/*", "tailwind.config.ts"],
   "overrides": [
     {
       "files": ["*.ts"],
