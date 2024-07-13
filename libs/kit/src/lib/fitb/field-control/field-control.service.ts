@@ -7,7 +7,7 @@ import {
 } from './field.control.types';
 import { FITBData } from '../fitb.types';
 import { toValidators } from './utils/to-validators';
-import { Subscription } from 'rxjs';
+import { startWith, Subscription } from 'rxjs';
 
 @Injectable()
 /**
@@ -70,11 +70,11 @@ export class FieldControlService implements OnDestroy {
 
       if (nodes?.length) {
         console.info('Subscribing to control value changes');
-        this.controlValueChangesSubscription = control.valueChanges.subscribe(
-          (value) => {
+        this.controlValueChangesSubscription = control.valueChanges
+          .pipe(startWith(control.value))
+          .subscribe((value) => {
             this.setRenderedChildren(value, nodes);
-          }
-        );
+          });
       }
 
       this.data.set(data);

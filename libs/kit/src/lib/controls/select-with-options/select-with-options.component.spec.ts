@@ -25,4 +25,12 @@ describe('SelectWithOptionsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set value and map to name', () => {
+    component.control().setValue('2');
+    component.control().updateValueAndValidity();
+    // Expect control value to be '2'
+    expect(component.control().value).toBe('2');
+    expect(component.toName('2')).toBe('Option 2');
+  });
 });
