@@ -35,5 +35,12 @@ jobs:
 
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
       # - run: npx nx-cloud record -- echo Hello World
-      - run: npx nx affected -t lint test build
+      - run: npx nx affected -t lint build
+      - run: npx nx affected -t test -- --coverage
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./coverage/
+          files: apps/naologic/cobertura-coverage.xml,libs/kit/cobertura-coverage.xml
       - run: npx playwright install --with-deps && npx nx affected --parallel 1 -t e2e-ci
