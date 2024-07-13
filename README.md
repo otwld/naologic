@@ -16,16 +16,18 @@ I hope you will enjoy reading my code. I am eager to work for a company that lev
 - [ ] CSS: The CSS could be improved by using Tailwind classes instead of cluttering the HTML.
 - [ ] Typing: Stronger typing with template generics could be implemented.
 - [ ] Pixel-Perfect Accuracy: Input width should be adjusted to match the sketch more closely.
+  - 💡You can check this [website](https://otwld.com/) to see my pixel-perfect accuracy.
 - [ ] FITB Field Types: The FITB component should support different field types (e.g., text, number, date, password, etc...).
 - [ ] FITB Field Validation: The FITB component should support more field validation (e.g., min, max, etc...).
 - [ ] FITB Form Output Typing: The FITB component should output a typed form object.
+- [ ] FITB Rendering: The FITBComponent & FITBFieldControlComponent should share their rendering logic.
 
 ### Deployment
 
 The live version of the application is deployed on Google Cloud Run using a Docker image. You can access it via the following URL:
 
 - [Live Application](https://naologic-csx7mnamxa-uc.a.run.app/)
-- [Storybook](https://naologic-csx7mnamxa-uc.a.run.app/storybook)
+- [Storybook](https://668fa22850553b4d3c2ae719-bkwzfvksfd.chromatic.com/)
 
 ## Workspace Structure
 
