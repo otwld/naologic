@@ -41,6 +41,5 @@ jobs:
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          directory: ./coverage/
-          files: apps/naologic/cobertura-coverage.xml,libs/kit/cobertura-coverage.xml
+          file: coverage/libs/kit/cobertura-coverage.xml
       - run: npx playwright install --with-deps && npx nx affected --parallel 1 -t e2e-ci
