@@ -41,12 +41,12 @@ test('can select examples', async ({ page }) => {
   expect(await page.locator('lib-fitb').count()).toBe(1);
 
   // Expect the FITB component to contain an input with a placeholder.
-  expect(
-    await page.locator('lib-fitb input').first().getAttribute('placeholder')
-  ).toBe('Enter widget name');
+  await expect(
+    page.locator('lib-fitb input').first()
+  ).toHaveAttribute('placeholder', 'Enter widget name');
 
   // Expect the FITB component to contain a button with a text.
-  expect(await page.locator('lib-fitb button').first().innerText()).toBe(
+  await expect(page.locator('lib-fitb button').first()).toHaveText(
     'Simple'
   );
 
@@ -56,12 +56,12 @@ test('can select examples', async ({ page }) => {
   expect(await page.locator('lib-fitb').count()).toBe(1);
 
   // Expect the FITB component to contain button with value "Include solar panels?".
-  expect(
-    await page
+  await expect(
+    page
       .locator('lib-fitb button')
       .getByText('Include solar panels?')
-      .innerText()
-  ).toBe('Include solar panels?');
+
+  ).toHaveText('Include solar panels?');
 
   // Click dropdown button with text "Modern"
   await page.locator('lib-fitb button').getByText('Modern').first().click();
@@ -74,13 +74,13 @@ test('can select examples', async ({ page }) => {
     .click();
 
   // The button should now contain the text "Traditional"
-  expect(
-    await page
+  await expect(
+    page
       .locator('lib-fitb button')
       .getByText('Traditional')
       .first()
-      .innerText()
-  ).toBe('Traditional');
+
+  ).toHaveText('Traditional');
 
   // Expect the FITB component to not contain button with value "Include solar panels?".
   expect(
