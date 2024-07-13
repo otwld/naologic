@@ -35,6 +35,8 @@ The live version of the application is deployed on Google Cloud Run using a Dock
 
 #### Library: Kit
 
+[![codecov](https://codecov.io/gh/otwld/naologic/branch/feat%2Flast-improvements/graph/badge.svg?token=BVXZKZXFIS)](https://codecov.io/gh/otwld/naologic)
+
 - **Purpose**: Contains reusable components used by applications.
 - **Features**:
   - **Storybook**: Simplifies development by isolating components. Supports interaction testing and visual testing using Chromatic.
