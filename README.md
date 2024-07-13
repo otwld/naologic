@@ -21,6 +21,7 @@ I hope you will enjoy reading my code. I am eager to work for a company that lev
 - [ ] FITB Field Validation: The FITB component should support more field validation (e.g., min, max, etc...).
 - [ ] FITB Form Output Typing: The FITB component should output a typed form object.
 - [ ] FITB Rendering: The FITBComponent & FITBFieldControlComponent should share their rendering logic.
+- [ ] Stories Interaction Testing: The Storybook stories should include more interaction testing.
 
 ### Deployment
 
@@ -28,6 +29,7 @@ The live version of the application is deployed on Google Cloud Run using a Dock
 
 - [Live Application](https://naologic-csx7mnamxa-uc.a.run.app/)
 - [Storybook](https://668fa22850553b4d3c2ae719-bkwzfvksfd.chromatic.com/)
+- [Visual Testing Example](https://www.chromatic.com/test?appId=668fa22850553b4d3c2ae719&id=66923111dc0b880826b006c3)
 
 ## Workspace Structure
 
