@@ -1,7 +1,12 @@
-import { computed, Injectable, OnDestroy, signal } from '@angular/core';
+import { Injectable, OnDestroy, signal } from '@angular/core';
 
-import EditorJS, { EditorConfig } from '@editorjs/editorjs';
-import { fromEvent, Subscription } from 'rxjs';
+import EditorJS from '@editorjs/editorjs';
+import { Subscription } from 'rxjs';
+import { EditorConfig } from './editor.types';
+import MentionShadowTool, {
+  MentionData,
+  MentionToolConstructor,
+} from './classes/mention-shadow-tool';
 
 type OnChangeParameters = Parameters<
   Exclude<EditorConfig['onChange'], undefined>
@@ -27,22 +32,9 @@ export class EditorService implements OnDestroy {
    */
   public readonly ready = signal<boolean>(false);
 
-  /**
-   * Computed signal that emits the block from the last change event.
-   */
-  public readonly block = computed(() => {
-    const change = this.change();
-    if (!change) return null;
-    const [, event] = change;
-    // TODO: Handle correctly when event is an array
-    const block = Array.isArray(event) ? event[0] : event;
-    return block.detail.target;
-  });
+  public readonly config = signal<EditorConfig | null>(null);
 
-  /**
-   * Signal that emits when a keypress event occurs on the editor holder.
-   */
-  public readonly keyPress = signal<KeyboardEvent | null>(null);
+  public readonly holder = signal<HTMLElement | null>(null);
 
   /**
    * Create a new editor instance with the given configuration.
@@ -65,32 +57,46 @@ export class EditorService implements OnDestroy {
     const editor = new EditorJS({
       ...config,
       onChange: (api, event) => this.change.set([api, event]),
-      onReady: () => this.ready.set(true),
+      onReady: () => {
+        this.ready.set(true);
+        /**
+         * Set the editor signal to the new editor instance.
+         */
+        this.editor.set(editor);
+      },
     });
 
-    /**
-     * Listen for keypress events on the editor holder.
-     */
-    this.keyPressSubscription = fromEvent(config.holder, 'keypress').subscribe(
-      (e) => {
-        this.keyPress.set(e as KeyboardEvent);
-      }
-    );
-
-    /**
-     * Set the editor signal to the new editor instance.
-     */
-    this.editor.set(editor);
-
+    this.holder.set(config.holder);
+    this.config.set(config);
     /**
      * Return the new editor instance.
      */
     return editor;
   }
 
+  /**
+   * TODO: Register inside a map so we can offer more manipulation to the developer.
+   * @param data
+   * @param config
+   */
+  registerMention<T extends MentionData>(
+    data: T[],
+    config: Omit<MentionToolConstructor<T>, 'holder' | 'data'>
+  ) {
+    const holder = this.holder();
+    if (!holder)
+      throw new Error(
+        '[EditorService] you cannot register a mention tool if holder is not set.'
+      );
+    return new MentionShadowTool<T>({
+      ...config,
+      data,
+      holder,
+    });
+  }
+
   ngOnDestroy() {
     const editor = this.editor();
-    console.info(editor);
     if (editor) editor.destroy();
     if (this.keyPressSubscription) this.keyPressSubscription.unsubscribe();
   }

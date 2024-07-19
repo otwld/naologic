@@ -1,1 +1,28 @@
-<div class="border rounded border-gray-200" #container></div>
+<lib-editor
+  #editor
+  placeholder="Write a comment..."
+  [pluginsConfig]="editorPluginConfig"
+  [users]="USERS()"
+  [variables]="VARIABLES()"
+></lib-editor>
+
+<!--DEBUG-->
+
+<button (click)="sendMessage(editor.save())">Send</button>
+
+@if (outputData(); as data) {
+  <div class="flex">
+    <lib-editor
+      class="block w-[20%]"
+      placeholder="something"
+      [readOnly]="true"
+      [data]="data"
+      [pluginsConfig]="editorPluginConfig"
+    ></lib-editor>
+
+    <div>
+      <h2>Output</h2>
+      <pre>{{ data | json }}</pre>
+    </div>
+  </div>
+}
